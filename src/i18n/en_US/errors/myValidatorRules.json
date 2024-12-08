@@ -1,0 +1,11 @@
+{
+    "common": {
+        "hasText": "Please, fill the field"
+    },
+    "email": {
+        "regex": "Please, fill the field with a valid e-mail"
+    },
+    "phone": {
+        "regex": "Please, fill the field with a valid phone"
+    }
+}
