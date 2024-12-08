@@ -1,5 +1,5 @@
 # validator-js
-An validator of data using javascript. This is a simple way to work with data validation without need to write a lot of code, you could only re-use your code and change the rules as you want of each data validation that you have in your code.
+A validator of data using javascript. This is a simple way to work with data validation without need to write a lot of code, you could only re-use your code and change the rules as you want of each data validation that you have in your code.
 
 ## How to start
 To start is really simple you only need run this command:
