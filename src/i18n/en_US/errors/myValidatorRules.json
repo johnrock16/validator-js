@@ -7,5 +7,8 @@
     },
     "phone": {
         "regex": "Please, fill the field with a valid phone"
+    },
+    "name": {
+        "nameSpecialValidation": "Please, fill the field following fields: name, email and cellphone"
     }
 }

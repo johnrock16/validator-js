@@ -1,6 +1,6 @@
 const { regexStringToExpression, isValidDate, calculateAge, validateCPF } = require("./util");
 
-const myValidator = function (value, rule, modifier = null) {
+const myValidator = function (value, rule, modifier = null, data = null) {
     function regex() {
         const regexTemplate = (rule.modifier && rule.modifier[modifier]?.regex) ? rule.modifier[modifier].regex : rule.regex;
         const regexExpression = typeof regexTemplate === 'string' ? regexStringToExpression(regexTemplate) : regexTemplate;
@@ -38,6 +38,17 @@ const myValidator = function (value, rule, modifier = null) {
     })
 }
 
+const nameValidator = function (value, rule, modifier = null, data = null) {
+    function nameSpecialValidation(emailKey, cellphoneKey) {
+        return !!(value && data[emailKey] && data[cellphoneKey])
+    }
+
+    return({
+        nameSpecialValidation
+    })
+}
+
 module.exports = {
-    myValidator
+    myValidator,
+    nameValidator
 }
