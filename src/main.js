@@ -50,7 +50,7 @@ const fieldsWorking2 = {
     "phone": "",
     "subject": "I need a coffe",
     "message": "Give me coffe",
-    "cellphone": "cellphone"
+    "cellphone": "0000-0000"
 }
 
 const dataValidatedCorrectlyWithInheritanceAndVariables = dataValidate(fieldsWorking2, {validationHelpers: validatorHelpers, rules: RULES, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES});
