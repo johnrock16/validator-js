@@ -1,8 +1,11 @@
-const { myValidator } = require('../dataValidator/validators');
+const { myValidator, nameValidator } = require('../dataValidator/validators');
 const { dataValidate } = require('../dataValidator/dataValidate');
 const MY_RULES = require('../dataValidator/rules/validators/myValidatorRules.json');
 const CONTACT_US = require('../dataValidator/rules/data/contactUs.json');
 const CUSTOMER_CREATION = require('../dataValidator/rules/data/customerCreation.json');
+const MY_ACCOUNT = require('../dataValidator/rules/data/myAccount.json');
+const NAME_RULE = require('../dataValidator/rules/validators/name.rule.json');
+const NAME_DATA_RULE = require('../dataValidator/rules/data/name.data.rule.json');
 const MY_VALIDATOR_ERROR_MESSAGES = require('../i18n/en_US/errors/myValidatorRules.json');
 
 describe('dataValidator', () => {
@@ -225,7 +228,6 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                console.log(myValidatorMocked())
                 const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.ok).toBeTruthy();
             });
@@ -242,6 +244,26 @@ describe('dataValidator', () => {
                 const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             });
+
+            test('filled all fields and using inheritance and variables', () => {
+                const fieldsFilledCorrectly = {
+                    "name": "John",
+                    "lastName": "Doe",
+                    "birthdate": "2000-12-22",
+                    "cpf": "000.000.000-00",
+                    "email": "email@email.com",
+                    "phone": "0000-0000",
+                    "cellphone": "0000-0000"
+                }
+                const RULES = {...MY_RULES, ...NAME_RULE};
+                const DATA_RULES = {...CUSTOMER_CREATION, ...NAME_DATA_RULE}
+                const validatorHelpers = (value, rule, modifier = null, data = null) => ({
+                    ...myValidatorMocked(value, rule, modifier, data),
+                    ...nameValidator(value, rule, modifier, data)
+                });
+                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: validatorHelpers, rules: RULES, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                expect(dataValidated.ok).toBeTruthy();
+            })
         });
 
         describe('bad ending', () => {
@@ -282,6 +304,59 @@ describe('dataValidator', () => {
                 }
                 const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.dataErrors.birthdate.errorType).toBe('validateAge');
+            });
+        });
+    });
+
+    describe('my account', () => {
+        const myValidatorMocked = (value, rule, modifier = null, data = null) => ({
+            ...myValidator(value, rule, modifier, data),
+            cpf: () => value === '000.000.000-00' // I don't want to be sued by putting a random CPF in the code
+        });
+
+        describe('happy ending', () => {
+            test('filled all fields correctly', () => {
+                const fieldsFilledCorrectly = {
+                    "name": "John",
+                    "lastName": "Doe",
+                    "birthdate": "2000-12-22",
+                    "cpf": "000.000.000-00",
+                    "email": "email@email.com",
+                    "emailConfirm": "email@email.com",
+                    "phone": "0000-0000",
+                }
+                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                expect(dataValidated.ok).toBeTruthy();
+            });
+        });
+
+        describe('bad ending', () => {
+            test('filled email confirm are not equal', () => {
+                const fieldsFilledCorrectly = {
+                    "name": "John",
+                    "lastName": "Doe",
+                    "birthdate": "2000-12-22",
+                    "cpf": "000.000.000-00",
+                    "email": "email@email.com",
+                    "emailConfirm": "email@email.co",
+                    "phone": "0000-0000",
+                }
+                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                expect(dataValidated.dataErrors.emailConfirm.errorType).toBe('equals');
+            });
+
+            test('filled email confirm are not correct email format', () => {
+                const fieldsFilledCorrectly = {
+                    "name": "John",
+                    "lastName": "Doe",
+                    "birthdate": "2000-12-22",
+                    "cpf": "000.000.000-00",
+                    "email": "email@email.com",
+                    "emailConfirm": "email",
+                    "phone": "0000-0000",
+                }
+                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                expect(dataValidated.dataErrors.emailConfirm.errorType).toBe('regex');
             });
         });
     });

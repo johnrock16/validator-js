@@ -16,6 +16,18 @@
         "validate": ["regex"],
         "error": {
             "regex": "email.regex"
+        },
+        "modifier": {
+            "confirm": {
+                "validate": ["regex", "equals"],
+                "params": {
+                    "equals": ["$email"]
+                },
+                "error": {
+                    "regex": "email.regex",
+                    "equals": "email.equals"
+                }
+            }
         }
     },
     "phone":{

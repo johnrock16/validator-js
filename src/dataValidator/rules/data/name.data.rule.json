@@ -2,7 +2,7 @@
     "name": {
         "rule": "name",
         "required": true,
-        "variables": ["cpf", "email"]
+        "variables": ["cellphone", "email"]
     },
     "cellphone": {
         "rule": "phone",

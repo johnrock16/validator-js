@@ -36,7 +36,7 @@ console.log(dataValidatedCorrectly);
 
 // example using different validators, rules and data rules and also using variables in this validation (see variable usages in data-rules, rules and validators)
 
-const RULEs = {...MY_RULES, ...NAME_RULE};
+const RULES = {...MY_RULES, ...NAME_RULE};
 const DATA_RULES = {...CONTACT_US, ...NAME_DATA_RULE}
 const validatorHelpers = (value, rule, modifier = null, data = null) => ({
     ...myValidator(value, rule, modifier, data),
@@ -50,9 +50,9 @@ const fieldsWorking2 = {
     "phone": "",
     "subject": "I need a coffe",
     "message": "Give me coffe",
-    "cellphone": "0000-0000"
+    "cellphone": "cellphone"
 }
 
-const dataValidatedCorrectlyWithInheritanceAndVariables = dataValidate(fieldsWorking2, {validationHelpers: validatorHelpers, rules: RULEs, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES});
+const dataValidatedCorrectlyWithInheritanceAndVariables = dataValidate(fieldsWorking2, {validationHelpers: validatorHelpers, rules: RULES, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES});
 
 console.log(dataValidatedCorrectlyWithInheritanceAndVariables)

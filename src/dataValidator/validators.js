@@ -28,13 +28,19 @@ const myValidator = function (value, rule, modifier = null, data = null) {
         return validateCPF(value);
     }
 
+    function equals(key) {
+        console.log('aqui', data)
+        return value === data[key];
+    }
+
     return({
         regex,
         hasText,
         maxLength,
         validDate,
         validateAge,
-        cpf
+        cpf,
+        equals
     })
 }
 
