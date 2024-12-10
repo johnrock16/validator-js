@@ -1,4 +1,4 @@
-function dataValidate(data, {validationHelpers = {}, rules, dataRule, dataErrorMessages = {}}) {
+export function dataValidate(data, {validationHelpers = {}, rules, dataRule, dataErrorMessages = {}}) {
     const dataErrors = {};
 
     function getObjectValueByPath(obj, path) {
@@ -101,8 +101,4 @@ function dataAttributeValidator (value, rule, modifier = null, customValidation 
     return({
         validate
     });
-}
-
-module.exports = {
-    dataValidate
 }

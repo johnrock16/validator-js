@@ -1,12 +1,12 @@
-const { myValidator, nameValidator } = require('../dataValidator/validators');
-const { dataValidate } = require('../dataValidator/dataValidate');
-const MY_RULES = require('../dataValidator/rules/validators/myValidatorRules.json');
-const CONTACT_US = require('../dataValidator/rules/data/contactUs.json');
-const CUSTOMER_CREATION = require('../dataValidator/rules/data/customerCreation.json');
-const MY_ACCOUNT = require('../dataValidator/rules/data/myAccount.json');
-const NAME_RULE = require('../dataValidator/rules/validators/name.rule.json');
-const NAME_DATA_RULE = require('../dataValidator/rules/data/name.data.rule.json');
-const MY_VALIDATOR_ERROR_MESSAGES = require('../i18n/en_US/errors/myValidatorRules.json');
+import { myValidator, nameValidator } from '../dataValidator/validators';
+import { dataValidate }  from '../dataValidator/dataValidate';
+import MY_RULES from '../dataValidator/rules/validators/myValidatorRules.json' with { type: 'json' };
+import CONTACT_US from '../dataValidator/rules/data/contactUs.json' with { type: 'json' };
+import CUSTOMER_CREATION from '../dataValidator/rules/data/customerCreation.json' with { type: 'json' };
+import MY_ACCOUNT from '../dataValidator/rules/data/myAccount.json' with { type: 'json' };
+import NAME_RULE from '../dataValidator/rules/validators/name.rule.json' with { type: 'json' };
+import NAME_DATA_RULE from '../dataValidator/rules/data/name.data.rule.json' with { type: 'json' };
+import MY_VALIDATOR_ERROR_MESSAGES from '../i18n/en_US/errors/myValidatorRules.json' with { type: 'json' };
 
 describe('dataValidator', () => {
     describe('contact us', () => {

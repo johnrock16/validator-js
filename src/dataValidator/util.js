@@ -1,4 +1,4 @@
-function regexStringToExpression(regexString) {
+export const regexStringToExpression = function(regexString) {
     let regexExpression = regexString;
     if (typeof regexString === 'string') {
         const flags = regexString.replace(/.*\/([gimy]*)$/, '$1');
@@ -8,7 +8,7 @@ function regexStringToExpression(regexString) {
     return regexExpression;
 }
 
-const validateCPF = function(cpf) {
+export const validateCPF = function(cpf) {
     if (typeof cpf !== "string") return false;
     cpf = cpf.replace(/[\s.-]*/igm, '');
     if (
@@ -43,7 +43,7 @@ const validateCPF = function(cpf) {
     return true;
 }
 
-const isValidDate = function(dateString){
+export const isValidDate = function(dateString){
     const regex = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
     if(!regex.test(dateString)) return false;
 
@@ -56,18 +56,11 @@ const isValidDate = function(dateString){
     return day > 0 && day <= monthLength[month - 1];
 };
 
-const calculateAge = function(birthday) {
+export const calculateAge = function(birthday) {
     if(typeof birthday === 'string') {
         birthday = new Date(birthday);
     }
     const ageDifference = Date.now() - birthday.getTime();
     const ageDate = new Date(ageDifference);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
-}
-
-module.exports = {
-    regexStringToExpression,
-    validateCPF,
-    isValidDate,
-    calculateAge
 }

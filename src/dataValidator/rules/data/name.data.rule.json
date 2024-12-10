@@ -1,8 +1,7 @@
 {
     "name": {
         "rule": "name",
-        "required": true,
-        "variables": ["cellphone", "email"]
+        "required": true
     },
     "cellphone": {
         "rule": "phone",
