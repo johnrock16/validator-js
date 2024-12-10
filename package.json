@@ -5,7 +5,7 @@
   "main": "./src/main.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/__examples__/vanilla/src/index.js",
+    "start": "node ./examples/vanilla/src/index.js",
     "build": "node build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },

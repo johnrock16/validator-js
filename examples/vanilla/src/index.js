@@ -1,4 +1,4 @@
-import validatorJS from "../../../../dist/main.js";
+import validatorJS from "../../../dist/main.js";
 import { myValidator, nameValidator } from './dataValidator/validators.js';
 import MY_RULES from './dataValidator/rules/validators/myValidatorRules.json' with { type: 'json' };
 import NAME_RULE from './dataValidator/rules/validators/name.rule.json' with { type: 'json' };

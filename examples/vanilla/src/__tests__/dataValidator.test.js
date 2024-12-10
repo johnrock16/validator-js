@@ -1,5 +1,5 @@
-import { myValidator, nameValidator } from '../dataValidator/validators';
-import { dataValidate }  from '../dataValidator/dataValidate';
+import { myValidator, nameValidator } from '../dataValidator/validators.js';
+import validatorJS  from '../../../../dist/main.js';
 import MY_RULES from '../dataValidator/rules/validators/myValidatorRules.json' with { type: 'json' };
 import CONTACT_US from '../dataValidator/rules/data/contactUs.json' with { type: 'json' };
 import CUSTOMER_CREATION from '../dataValidator/rules/data/customerCreation.json' with { type: 'json' };
@@ -20,7 +20,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             });
 
@@ -34,7 +34,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.ok).toBeTruthy();
             });
 
@@ -47,7 +47,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.ok).toBeTruthy();
             });
         });
@@ -55,7 +55,7 @@ describe('dataValidator', () => {
         describe('bad ending', () => {
             test('missing all properties', () => {
                 const fieldsMissing = {}
-                const dataValidated = dataValidate(fieldsMissing, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsMissing, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.errorMessage).toBe("Missing fields for dataRules");
             });
 
@@ -67,7 +67,7 @@ describe('dataValidator', () => {
                     "subject": "",
                     "message": ""
                 }
-                const dataValidated = dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.errorMessage).toBe("Missing properties");
             });
 
@@ -76,7 +76,7 @@ describe('dataValidator', () => {
                     "lastName": "",
                     "email": "emailcom",
                 }
-                const dataValidated = dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.errorMessage).toBe("Missing properties");
             });
 
@@ -89,7 +89,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.dataErrors.name.errorMessage).toBe("Please, fill the field");
             });
 
@@ -102,7 +102,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.name.errorMessage).toBe("common.hasText");
             });
 
@@ -115,7 +115,7 @@ describe('dataValidator', () => {
                     "subject": "",
                     "message": ""
                 }
-                const dataValidated = dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(Object.keys(dataValidated.dataErrors).length).toBe(6);
             });
 
@@ -128,7 +128,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.name.name).toBe('name');
             });
 
@@ -141,7 +141,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.lastName.name).toBe('lastName');
             });
 
@@ -154,7 +154,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledNameWrong, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.email.name).toBe('email');
             });
 
@@ -167,7 +167,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.phone.name).toBe('phone');
             });
 
@@ -180,7 +180,7 @@ describe('dataValidator', () => {
                     "subject": "",
                     "message": "Give me coffe"
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.subject.name).toBe('subject');
             });
 
@@ -193,7 +193,7 @@ describe('dataValidator', () => {
                     "subject": "I need a coffe",
                     "message": ""
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US});
                 expect(dataValidated.dataErrors.message.name).toBe('message');
             });
         });
@@ -215,7 +215,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             });
 
@@ -228,7 +228,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.ok).toBeTruthy();
             });
 
@@ -241,7 +241,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             });
 
@@ -261,7 +261,7 @@ describe('dataValidator', () => {
                     ...myValidatorMocked(value, rule, modifier, data),
                     ...nameValidator(value, rule, modifier, data)
                 });
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: validatorHelpers, rules: RULES, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: validatorHelpers, rules: RULES, dataRule: DATA_RULES, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             })
         });
@@ -276,7 +276,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.dataErrors.cpf.name).toBe('cpf');
             });
 
@@ -289,7 +289,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.dataErrors.birthdate.errorType).toBe('regex');
             });
 
@@ -302,7 +302,7 @@ describe('dataValidator', () => {
                     "email": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: CUSTOMER_CREATION});
                 expect(dataValidated.dataErrors.birthdate.errorType).toBe('validateAge');
             });
         });
@@ -325,7 +325,7 @@ describe('dataValidator', () => {
                     "emailConfirm": "email@email.com",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.ok).toBeTruthy();
             });
         });
@@ -341,7 +341,7 @@ describe('dataValidator', () => {
                     "emailConfirm": "email@email.co",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.dataErrors.emailConfirm.errorType).toBe('equals');
             });
 
@@ -355,7 +355,7 @@ describe('dataValidator', () => {
                     "emailConfirm": "email",
                     "phone": "0000-0000",
                 }
-                const dataValidated = dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
+                const dataValidated = validatorJS.dataValidate(fieldsFilledCorrectly, {validationHelpers: myValidatorMocked, rules: MY_RULES, dataRule: MY_ACCOUNT, dataErrorMessages: MY_VALIDATOR_ERROR_MESSAGES});
                 expect(dataValidated.dataErrors.emailConfirm.errorType).toBe('regex');
             });
         });
