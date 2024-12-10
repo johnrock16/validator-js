@@ -113,8 +113,9 @@
             const fields = JSON.parse(dataElement.value);
             const dataRules = JSON.parse(dataRulesElement.value);
             const rules = JSON.parse(rulesElement.value);
+            const errorMessages = JSON.parse(errorMessageElement.value);
 
-            const dataValidatedCorrectly = dataValidate(fields, {validationHelpers: window.validatorJS.myValidator, rules: rules, dataRule: dataRules, dataErrorMessages: window.validatorJS.MY_VALIDATION_ERROR_MESSAGES});
+            const dataValidatedCorrectly = dataValidate(fields, {validationHelpers: window.validatorJS.myValidator, rules: rules, dataRule: dataRules, dataErrorMessages: errorMessages});
             outputElement.value = JSON.stringify(dataValidatedCorrectly);
           } catch (error) {
             console.log(error);
