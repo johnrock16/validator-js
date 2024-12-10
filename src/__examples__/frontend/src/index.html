@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Validator-JS</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script src='../../../../dist/frontend/main.js'></script>
+    <script src='./dist/frontend/main.js'></script>
     <style>
       .container {
         display: block;
@@ -43,6 +43,13 @@
       textarea.error {
         border-width: 2px;
         border-color: red;
+      }
+
+      @media only screen and (max-width: 960px) {
+        .row {
+          display: flex;
+          flex-direction: column;
+        }
       }
     </style>
   </head>
