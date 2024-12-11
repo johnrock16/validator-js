@@ -43,10 +43,10 @@ const dataValidatedCorrectly = dataValidate(fields, {validationHelpers: myValida
 
 You will need to instantiate dataValidate and pass this parameters:
 - **field**: The object you wants to validate
-- **validationHelpers**: The functions that you write to help your validate your field data (see src/dataValidator/validator.js)
-- **rules**: The general rules that you have in your project. This determines what is expected to do for each situation (see src/dataValidator/rules/myValidatorRules.json)
-- **dataRule**: This will map the connections between your fields and rules, this should be your specific "form rules" to validate all the data inside fields. (see src/dataValidator/rules/data/contactUs.json)
-- **dataErrorMessages**: A JSON with your error messages. (see i18n/en_US/errors/myValidatorRules.json)
+- **validationHelpers**: The functions that you write to help your validate your field data (see examples/vanilla/src/dataValidator/validator.js)
+- **rules**: The general rules that you have in your project. This determines what is expected to do for each situation (see examples/vanilla/src/dataValidator/rules/myValidatorRules.json)
+- **dataRule**: This will map the connections between your fields and rules, this should be your specific "form rules" to validate all the data inside fields. (see examples/vanilla/src/dataValidator/rules/data/contactUs.json)
+- **dataErrorMessages**: A JSON with your error messages. (see examples/vanilla/i18n/en_US/errors/myValidatorRules.json)
 
 So in this case We have some **fields** to validate, your specific rule for what "general rules" We will use and what field would be required or not will be inside **dataRule**, this will be a bridge between **fields** and **rules** which will determines the approach to be validated and what fields needs to be validate using a specific funcion inside **validationHelpers** if some of this **rules** are broken by some **field data** We will return an error and a custom error message defined in **rules** and **dataErrorMessages**.
 
@@ -123,7 +123,7 @@ In this case the name of rule will be the keys of the JSON and the will have thi
 - **error**: The error that should be returned during of the fail of some of the functions inside **validate**.
 - **regex**: The regex need for some regex validation during **validate**.
 - **modifier**: An rule that will inherit some of properties of original rule and override
-- **params**: The parameters that should be used in some functions during **validate**
+- **params**: The parameters that should be used in some functions during **validate** (Also you could add variables, the data fields ones in parameters following this structure $variable so if you want access the email variable you could use something like this: $email)
 
 Also, you could create more than one **rules file** for your application, the structure will not forces you to have only one **rules file** for entire application.
 
