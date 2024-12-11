@@ -1,3 +1,9 @@
+/**
+ * Validate your data fields using your rules, data rules and validators.
+ * @param {[DataField]} data - All the data fields to be validate
+ * @param {DataValidatorConfigs} config - The configs which will be followed during validation
+ * @returns {DataValidatorSuccessResponse | DataValidatorErrorResponse} - The response of your validation
+ */
 export function dataValidate(data, {validationHelpers = {}, rules, dataRule, dataErrorMessages = {}}) {
     const dataErrors = {};
 
@@ -66,6 +72,15 @@ export function dataValidate(data, {validationHelpers = {}, rules, dataRule, dat
     return validate();
 }
 
+/**
+ * A function to validate each attribute from a object [dataField]
+ * @param {string} value - The value to be validated
+ * @param {string} rule - The rule to be used during validation
+ * @param {string} modifier - The modifier of the rule if have
+ * @param {Function} customValidation - The function which will validate the value
+ * @param {[DataField]} data - The entire data fields
+ * @returns {{validate: Function}} the built function to validate all this parameters
+ */
 function dataAttributeValidator (value, rule, modifier = null, customValidation = null, data = null) {
     function validateRules(rule) {
         let errorMessage;
