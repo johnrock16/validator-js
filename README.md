@@ -32,6 +32,7 @@ const fields = {
     "name": "John",
     "lastName": "Doe",
     "email": "email@email.com",
+    "emailConfirm": "email@email.com",
     "phone": "",
     "subject": "I need a coffe",
     "message": "Give me coffe"
@@ -66,6 +67,10 @@ This will be your specific rule for each **data** you need to validate. Here is 
         "rule": "email",
         "required": true
     },
+    "emailConfirm": {
+        "rule": "email--confirm",
+        "required": true
+    },
     "phone": {
         "rule": "phone",
         "required": false
@@ -92,6 +97,25 @@ This rules have a more general scope, and will determines what to do and what ne
     "validate": ["hasText"],
     "error": {
         "hasText": "common.hasText"
+    }
+  },
+  "email":{
+    "regex": "/^[a-z0-9.]+@[a-z0-9]+\\.[a-z]+(\\.[a-z]+)?$/i",
+    "validate": ["regex"],
+    "error": {
+      "regex": "email.regex"
+    },
+    "modifier": {
+      "confirm": {
+        "validate": ["regex", "equals"],
+          "params": {
+            "equals": ["$email"]
+          },
+          "error": {
+            "regex": "email.regex",
+            "equals": "email.equals"
+          }
+      }
     }
   },
   "date": {
