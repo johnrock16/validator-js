@@ -10,6 +10,7 @@ const fieldsWorking = {
     "name": "John",
     "lastName": "Doe",
     "email": "email@email.com",
+    "emailConfirm": "email@email.com",
     "phone": "",
     "subject": "I need a coffe",
     "message": "Give me coffe"
@@ -19,6 +20,7 @@ const fieldsNotWorking = {
     "name": "",
     "lastName": "",
     "email": "",
+    "emailConfirm": "emailemail.com",
     "phone": "0000-0000",
     "subject": "",
     "message": ""
@@ -47,6 +49,7 @@ const fieldsWorking2 = {
     "name": "John",
     "lastName": "Doe",
     "email": "email@email.com",
+    "emailConfirm": "email@email.com",
     "phone": "",
     "subject": "I need a coffe",
     "message": "Give me coffe",

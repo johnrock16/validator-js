@@ -278,6 +278,10 @@ var contactUs_default = {
     rule: "email",
     required: true
   },
+  emailConfirm: {
+    rule: "email--confirm",
+    required: true
+  },
   phone: {
     rule: "phone",
     required: false
