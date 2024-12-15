@@ -24,6 +24,10 @@ function getFormRules(formName) {
 
 async function formValidatorMiddleware(req, res, next) {
     const RULES = await getFormRules(req.body.type);
+    if (!RULES) {
+        res.status(400).json('invalid type');
+        return;
+    }
     const dataValidate = validatorJS.dataValidate(req.body.form, {validationHelpers: expressValidator, rules: MY_RULES, dataRule: RULES, dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES});
     if (dataValidate.error) {
         res.status(400).json(dataValidate);
