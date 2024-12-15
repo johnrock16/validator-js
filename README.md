@@ -1,8 +1,8 @@
 # validator-js
 A validator of data using javascript. This is a simple way to work with data validation without need to write a lot of code, you could only re-use your code and change the rules as you want of each data validation that you have in your code.
 
-Also, You could test most of the functionalities, except create/modify custom validators (because they are javascript and not JSON) but this could be a great start to test the functionalities.
-https://johnrock16.github.io/validator-js/
+Also, You could test most of the functionalities here: https://johnrock16.github.io/validator-js
+except create/modify custom validators (because they are javascript and not JSON) but this could be a great start to test the functionalities.
 
 ## How to start
 To start is really simple you only need run this command:

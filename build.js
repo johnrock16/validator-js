@@ -16,6 +16,7 @@ esbuild.build({
         platform: 'node',
         target: 'node16',
         format: 'cjs',
+        minify: true
     });
 }).then(() => {
     console.log('Build completed successfully.');
