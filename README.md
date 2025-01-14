@@ -89,11 +89,11 @@ Here’s an example of validating a set of fields:
 
 #### Parameters for dataValidate:
 
-- fields: The object containing data to be validated.
-- validationHelpers: Functions to validate field data (see /dataValidator/validators).
-- rules: General validation rules for your application.
-- dataRule: Specific rules linking fields to validation logic.
-- dataErrorMessages: Custom error messages returned upon validation failure.
+- **fields**: The object containing data to be validated.
+- **validationHelpers**: Functions to validate field data (see /dataValidator/validators).
+- **rules**: General validation rules for your application.
+- **dataRule**: Specific rules linking fields to validation logic.
+- **dataErrorMessages**: Custom error messages returned upon validation failure.
 
 ## Defining Validation Components
 
@@ -158,11 +158,11 @@ Define reusable validation logic. Example:
 ```
 #### Key Components:
 
-- validate: Array of functions to execute for validation.
-- error: Error messages for validation failures.
-- regex: Regular expression for validation.
-- modifier: Overrides specific rules with additional validations.
-- params: Parameters for validation functions (e.g., $email accesses email field data).
+- **validate**: Array of functions to execute for validation.
+- **error**: Error messages for validation failures.
+- **regex**: Regular expression for validation.
+- **modifier**: Overrides specific rules with additional validations.
+- **params**: Parameters for validation functions (e.g., $email accesses email field data).
 
 
 ### Validation Helpers
