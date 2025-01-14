@@ -1,120 +1,136 @@
 # validator-js
-A validator of data using javascript. This is a simple way to work with data validation without need to write a lot of code, you could only re-use your code and change the rules as you want of each data validation that you have in your code.
 
-Also, You could test most of the functionalities here: https://johnrock16.github.io/validator-js
-except create/modify custom validators (because they are javascript and not JSON) but this could be a great start to test the functionalities.
+## Overview
 
-## How to start
-To start is really simple you only need run this command:
-```javascript
+A lightweight and reusable JavaScript "library" for data validation. This library was  esigned to simplify the process of validating form inputs using flexible rules and error handling. Validating your data by allowing you to define flexible rules, custom error messages, and reusable helper functions—all in a structured format.
+
+The core goal is to provide a **reusable and easy-to-extend** for handling various form inputs, including fields like name, email, birthdate, phone number, and more.
+
+Test the core functionalities here: Validator.js Demo
+(Note: Creating or modifying custom validators is not supported in the demo, as it requires JavaScript implementation.)
+
+
+## Features
+
+- **Custom Validation Rules**: Easily define custom rules for form fields.
+- **Modular Design**: Separation of rule definitions and error messages for easy management.
+- **Easy Integration**: Can be used in any JavaScript environment.
+- **Clear Error Handling**: Handles errors and displays messages.
+- **Extendable**: Create your custom validators and rules and extend as you want.
+
+## Advanced Features
+
+- **Modifiers:** Extend rules for specific use cases (e.g., age validation in a date rule).
+- **Dynamic Parameters:** Use $variable to access field data within rules.
+- **Modular Rules and Validators:** Create multiple files for rules and helpers, organizing them by context or form.
+
+## Table of Contents
+
+- [Getting Started](#Getting-Started)
+  - [Installation](#Installation)
+  - [Running Tests](#Running-Tests)
+- [How It Works](#How-It-Works)
+  - [Basic Example](#Basic-Example)
+- [Defining Validation Components](#Defining-Validation-Components)
+  - [1. Data Rules](#Data-Rules)
+  - [2. General Rules](#General-Rules)
+  - [3. Validation Helpers](#Validation-Helpers)
+  - [4. Error Messages](#Error-Messages)
+  - [5. Example Usage](#Example-Usage)
+    - [Vanilla](#vanilla)
+    - [Express](#express)
+    - [Frontend](#frontend)
+
+## Getting Started
+### Installation
+
+To install and start the library, run:
+```bash
 npm install
 npm start
 ```
 
-## Start the tests
-You can run the tests using:
-```javascript
+### Running Tests
+
+Execute the test suite with:
+```bash
 npm test
 ```
 
-## How everything works
-If you didn't look the tests I recommend you start looking in the test first. To you get a better idea before continue.
-Ok, so let's start by how you will put the code to validate the data that you want:
+## How It Works
+### Basic Example
 
+Here’s an example of validating a set of fields:
 ```javascript
-const { myValidator } = require('./dataValidator/validators');
-const { dataValidate } = require('./dataValidator/dataValidate');
-const MY_RULES = require('./dataValidator/rules/validators/myValidatorRules.json');
-const CONTACT_US = require('./dataValidator/rules/data/contactUs.json');
-const MY_VALIDATION_ERROR_MESSAGES = require('./i18n/en_US/errors/myValidatorRules.json');
+  const { myValidator } = require('./dataValidator/validators');
+  const { dataValidate } = require('./dataValidator/dataValidate');
+  const MY_RULES = require('./dataValidator/rules/validators/myValidatorRules.json');
+  const CONTACT_US = require('./dataValidator/rules/data/contactUs.json');
+  const MY_VALIDATION_ERROR_MESSAGES = require('./i18n/en_US/errors/myValidatorRules.json');
 
-const fields = {
-    "name": "John",
-    "lastName": "Doe",
-    "email": "email@email.com",
-    "emailConfirm": "email@email.com",
-    "phone": "",
-    "subject": "I need a coffe",
-    "message": "Give me coffe"
-}
+  const fields = {
+    name: "John",
+    lastName: "Doe",
+    email: "email@email.com",
+    emailConfirm: "email@email.com",
+    phone: "",
+    subject: "I need a coffee",
+    message: "Give me coffee"
+  };
 
-// this should returns {ok: true}
-const dataValidatedCorrectly = dataValidate(fields, {validationHelpers: myValidator, rules: MY_RULES, dataRule: CONTACT_US, dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES});
+  // This should return { ok: true }
+  const result = dataValidate(fields, {
+    validationHelpers: myValidator,
+    rules: MY_RULES,
+    dataRule: CONTACT_US,
+    dataErrorMessages: MY_VALIDATION_ERROR_MESSAGES,
+  });
 ```
 
-You will need to instantiate dataValidate and pass this parameters:
-- **field**: The object you wants to validate
-- **validationHelpers**: The functions that you write to help your validate your field data (see examples/vanilla/src/dataValidator/validator.js)
-- **rules**: The general rules that you have in your project. This determines what is expected to do for each situation (see examples/vanilla/src/dataValidator/rules/myValidatorRules.json)
-- **dataRule**: This will map the connections between your fields and rules, this should be your specific "form rules" to validate all the data inside fields. (see examples/vanilla/src/dataValidator/rules/data/contactUs.json)
-- **dataErrorMessages**: A JSON with your error messages. (see examples/vanilla/i18n/en_US/errors/myValidatorRules.json)
+#### Parameters for dataValidate:
 
-So in this case We have some **fields** to validate, your specific rule for what "general rules" We will use and what field would be required or not will be inside **dataRule**, this will be a bridge between **fields** and **rules** which will determines the approach to be validated and what fields needs to be validate using a specific funcion inside **validationHelpers** if some of this **rules** are broken by some **field data** We will return an error and a custom error message defined in **rules** and **dataErrorMessages**.
+- fields: The object containing data to be validated.
+- validationHelpers: Functions to validate field data (see /dataValidator/validators).
+- rules: General validation rules for your application.
+- dataRule: Specific rules linking fields to validation logic.
+- dataErrorMessages: Custom error messages returned upon validation failure.
 
-### Data rules
-This will be your specific rule for each **data** you need to validate. Here is an example using a **contact us** structure to be validated:
+## Defining Validation Components
+
+### Data Rules
+
+Define rules for specific datasets, such as forms. Example for a "Contact Us" form:
 ```json
 {
-    "name": {
-        "rule": "name",
-        "required": true
-    },
-    "lastName": {
-        "rule": "name",
-        "required": true
-    },
-    "email": {
-        "rule": "email",
-        "required": true
-    },
-    "emailConfirm": {
-        "rule": "email--confirm",
-        "required": true
-    },
-    "phone": {
-        "rule": "phone",
-        "required": false
-    },
-    "subject": {
-        "rule": "hasText",
-        "required": true
-    },
-    "message": {
-        "rule": "hasText",
-        "required": true
-    }
+  "name": { "rule": "name", "required": true },
+  "lastName": { "rule": "name", "required": true },
+  "email": { "rule": "email", "required": true },
+  "emailConfirm": { "rule": "email--confirm", "required": true },
+  "phone": { "rule": "phone", "required": false },
+  "subject": { "rule": "hasText", "required": true },
+  "message": { "rule": "hasText", "required": true }
 }
-
 ```
-In this case We will determines what rule will be used for each **data** We will validate and if this **data** would be required or not. So you could create a lot of this **data rules** for each situation that you found in your application if you need validate some data for **contact us** or **customer register** or **support form** you could and will need create an **data rule** for each of this situations.
 
-### Rules
-This rules have a more general scope, and will determines what to do and what needs to be validate when this rule will be used and if this rule for some reason was broken by the **data** during the validation. This rules will determines what is the error We should return in this case. Here is a small example of rules:
+### General Rules
+
+Define reusable validation logic. Example:
 
 ```json
 {
   "name": {
     "validate": ["hasText"],
-    "error": {
-        "hasText": "common.hasText"
-    }
+    "error": { "hasText": "common.hasText" }
   },
-  "email":{
+  "email": {
     "regex": "/^[a-z0-9.]+@[a-z0-9]+\\.[a-z]+(\\.[a-z]+)?$/i",
     "validate": ["regex"],
-    "error": {
-      "regex": "email.regex"
-    },
+    "error": { "regex": "email.regex" },
     "modifier": {
       "confirm": {
         "validate": ["regex", "equals"],
-          "params": {
-            "equals": ["$email"]
-          },
-          "error": {
-            "regex": "email.regex",
-            "equals": "email.equals"
-          }
+        "params": { "equals": ["$email"] },
+        "error": { "equals": "email.equals" }
       }
     }
   },
@@ -122,98 +138,73 @@ This rules have a more general scope, and will determines what to do and what ne
     "regex": "/^\\d{4}[\/\\-](0?[1-9]|1[012])[\/\\-](0?[1-9]|[12][0-9]|3[01])$/",
     "validate": ["regex", "validDate"],
     "error": {
-        "regex": "common.dateFormat",
-        "validDate": "date.validDate"
+      "regex": "common.dateFormat",
+      "validDate": "date.validDate"
     },
     "modifier": {
       "age": {
         "validate": ["regex", "validateAge"],
         "params": {
-            "validateAge": [18, 130]
+          "validateAge": [18, 130]
         },
         "error": {
-            "regex": "common.dateFormat",
-            "validateAge": "date.modifier.age.validateAge"
+          "regex": "common.dateFormat",
+          "validateAge": "date.modifier.age.validateAge"
         }
       }
     }
   }
 }
 ```
+#### Key Components:
 
-In this case the name of rule will be the keys of the JSON and the will have this data:
+- validate: Array of functions to execute for validation.
+- error: Error messages for validation failures.
+- regex: Regular expression for validation.
+- modifier: Overrides specific rules with additional validations.
+- params: Parameters for validation functions (e.g., $email accesses email field data).
 
-- **validate**: an array of functions which will be running to validate the rule (these functions are the functions inside **validationHelpers**)
-- **error**: The error that should be returned during of the fail of some of the functions inside **validate**.
-- **regex**: The regex need for some regex validation during **validate**.
-- **modifier**: An rule that will inherit some of properties of original rule and override
-- **params**: The parameters that should be used in some functions during **validate** (Also you could add variables, the data fields ones in parameters following this structure $variable so if you want access the email variable you could use something like this: $email)
 
-Also, you could create more than one **rules file** for your application, the structure will not forces you to have only one **rules file** for entire application.
-
-### ValidationHelpers
-The functions that will help you validate your **data** this functions are mentioned in **rules** and have this structure:
+### Validation Helpers
+Helper functions perform actual validation. Example:
 
 ```javascript
-const { regexStringToExpression, isValidDate, calculateAge, validateCPF } = require("./util");
+const myValidator = function (value, rule, modifier = null, data = null) {
+  function regex() {
+    const regexTemplate = rule.modifier?.[modifier]?.regex || rule.regex;
+    const regex = new RegExp(regexTemplate);
+    return regex.test(value);
+  }
 
-const myValidator = function (value, rule, modifier = null) {
-    function regex() {
-        const regexTemplate = (rule.modifier && rule.modifier[modifier]?.regex) ? rule.modifier[modifier].regex : rule.regex;
-        const regexExpression = typeof regexTemplate === 'string' ? regexStringToExpression(regexTemplate) : regexTemplate;
-        return regexExpression.test(value);
-    }
+  function hasText() {
+    return value.trim().length > 0;
+  }
 
-    function hasText() {
-        return value.replace(/\s/g, '').length > 0;
-    }
+  function equals(key) {
+    return value === data[key];
+  }
 
-    function maxLength(maxValue) {
-        return maxValue >= value.length;
-    }
-
-    function validDate() {
-        return isValidDate(value);
-    }
-
-    function validateAge(minAge, maxAge) {
-        const age = calculateAge(value);
-        return age >= minAge && age <= maxAge;
-    }
-
-    function cpf() {
-        return validateCPF(value);
-    }
-
-    return({
-        regex,
-        hasText,
-        maxLength,
-        validDate,
-        validateAge,
-        cpf
-    })
-}
+  return { regex, hasText, equals };
+};
 ```
-
-All functions inside your **validatorHelper** could be anything and also using functions of another places such as **utils** to help your validate, the only rule you need to respect is all rules inside of your **validatorHelper** needs to be mentioned with the same name in **rules** and also always returns a **boolean**. Also, you could be create more than one **validatorHelper** to use in your application.
 
 ### Error Messages
-This is an way to have error messages for each situation. You only need to respect the path of error message following the error structure in **rules**.
 
-```json
+Define custom error messages in a structured format:
+``` json
 {
-  "common": {
-    "hasText": "Please, fill the field"
-  },
-  "email": {
-    "regex": "Please, fill the field with a valid e-mail"
-  },
-  "phone": {
-    "regex": "Please, fill the field with a valid phone"
-  }
+  "common": { "hasText": "Please fill out this field." },
+  "email": { "regex": "Enter a valid email address." }
 }
 ```
 
-### Test
-We have a lot of examples in __tests__ folder and I recommend to you see these examples and try to create some tests to see how everything works and try to create another scenario instead **contact us** or **customer creation**.
+### Example Usage
+
+Explore examples in the examples folder folder.
+
+#### Vanilla
+Here you are free to test anything you want about form validation, also We have a lot of tests scenarios in __tests__ which could be a great start.
+#### Express:
+See how the validator-js works in back-end using a middleware.
+#### Frontend:
+Here you can found the DEMO page and it's a type of "playground" to test how RULES works and validations works. (Here you can't create customized javascript so custom validatorHelpers are disabled by default)
