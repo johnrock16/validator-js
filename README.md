@@ -6,7 +6,7 @@ A lightweight and reusable JavaScript "library" for data validation. This librar
 
 The core goal is to provide a **reusable and easy-to-extend** for handling various form inputs, including fields like name, email, birthdate, phone number, and more.
 
-Test the core functionalities here: Validator.js Demo
+Test the core functionalities here: [Validator.js Demo](https://johnrock16.github.io/validator-js/)
 (Note: Creating or modifying custom validators is not supported in the demo, as it requires JavaScript implementation.)
 
 
